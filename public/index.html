@@ -23,32 +23,32 @@
     <script>
       var points = [];
       var map;
-          
+
         var colors = {
             best: "#709053",
             better: "#81ae64",
             good: "#c7e78b",
             fair: "#fff4c9"
         };
-        
+
       document.addEventListener('DOMContentLoaded', function() {
         console.log("test")
-        firebase.database().ref('region/Downtown/').on('value', function(snapshot) { 
+        firebase.database().ref('region/Downtown/').on('value', function(snapshot) {
             console.log("RESPONSE: " + snapshot.val())
-            points = snapshot.val()        
+            points = snapshot.val()
             new google.maps.Polygon({
               map: map,
               paths: points,
               strokeColor: '#757575',
               strokeOpacity: 0.8,
               strokeWeight: 2,
-              fillColor: colors.better,
+              fillColor: colors.best,
               fillOpacity: 0.8,
               draggable: false,
               geodesic: true
             });
         });
-                  
+
         var c = [{"lat": 42.361295952726586, "lng": -71.05341835721063},
 			{"lat": 42.344863910441305, "lng": -71.05949924146289},
 			{"lat": 42.349533426640555, "lng": -71.057062032957},
@@ -66,7 +66,7 @@
             disableDefaultUI: false
 
         });
-          
+
         var colors2 = {
             best: "#0278ae",
             better: "#51adcf",
@@ -74,7 +74,7 @@
             fair: "#e8ffc1"
         }
 
-        
+
         var map_style = [
           {
             elementType: 'geometry',
@@ -163,7 +163,7 @@
             stylers: [{color: '#9e9e9e'}]
           }
         ]
-          
+
         map.setOptions({styles: map_style});
 
       }
