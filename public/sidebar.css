@@ -1,0 +1,122 @@
+div.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: -522px;
+    background: rgba(20, 20, 20, 80%);
+    color: #FFF;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    transition: left .75s ease;
+}
+
+dl {
+    position: relative;
+    padding: 20px;
+    font-weight: 700;
+    color: white;
+}
+
+dt {
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.text {
+    position: absolute;
+    width: 130px;
+    left: 0;
+}
+
+
+.stacked-bar-graph {
+    width: 100%;
+    height: 40px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.stacked-bar-graph span {
+    font-size: .8em;
+    float: left;
+    line-height: 1;
+    text-transform: uppercase;
+    display: inline-block;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: right;
+    font-weight: 600;
+    padding-top: 15px;
+}
+
+.outdoors {
+    background: #4abd73;
+}
+
+.nightlife {
+    background: #e5f775;
+}
+
+.restaurants {
+    background: #f1c25b;
+}
+
+.safety {
+    background: #f97979;
+}
+
+
+.bar {
+    position: relative;
+}
+
+.bar:hover,
+.bar:focus {
+    background: #bbb;
+}
+
+.tooltip {
+    position: absolute;
+    background: #222;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 16px;
+    color: white;
+    z-index: 999;
+}
+
+.tooltip:before {
+    content: " ";
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid #222;
+    position: absolute;
+    bottom: -5px;
+    left: calc(50% - 10px);
+}
+
+a {
+    fill: white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 3;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px 15px;
+    transition: opacity .75s ease;
+}
+
+#close_sidebar {
+    opacity: 0;
+
+}
+
+sidebar.css
