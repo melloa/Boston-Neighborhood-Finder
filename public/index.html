@@ -64,7 +64,9 @@
             width: 50%;
             margin-top: 6px;
         }
+
         /* Clear floats after the columns */
+
         .row:after {
             content: "";
             display: table;
@@ -80,7 +82,10 @@
         }
 
     </style>
+    <script src="map.js"></script>
     <script src="sidebar.js"></script>
+    <script src="driving-distance.js"></script>
+    <script src="map-visualization.js"></script>
     <script defer src="/__/firebase/4.11.0/firebase-app.js"></script>
     <script defer src="/__/firebase/4.11.0/firebase-auth.js"></script>
     <script defer src="/__/firebase/4.11.0/firebase-database.js"></script>
@@ -156,7 +161,7 @@
         </div>
         <div class="row">
             <label for="income"><strong>Annual Income</strong></label>
-            <select name="income" id="income" >
+            <select name="income" id="income">
                 <option value="default" >select income range</option>
                 <option value="$0-$10,000">$0-$10,000</option>
                 <option value="$10,000-$30,000">$10,000-$30,000</option>
@@ -176,6 +181,7 @@
     <script>
         // initialize sidebar javascript
         window.onload = init_sidebar(window, document);
+
     </script>
 
     <script type="text/javascript">
@@ -187,10 +193,11 @@
             } else {
                 result.textContent = selected;
             }
+            create_polygon(map, 'Downtown', colors.good)
         }
+
     </script>
 
-    <script src="map.js"></script>
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS1savblfbc5FULYqAF6AZjKBKWrlRhl4
         &libraries=visualization&callback=initMap">

@@ -1,4 +1,3 @@
-var points = [];
 var map;
 
 var boston_center = {
@@ -13,44 +12,6 @@ var colors = {
     fair: "#fff4c9"
 };
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("test")
-    firebase.database().ref('region/Downtown/').on('value', function(snapshot) {
-        console.log("RESPONSE: " + snapshot.val())
-        points = snapshot.val()
-        new google.maps.Polygon({
-            map: map,
-            paths: points,
-            strokeColor: '#757575',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: colors.best,
-            fillOpacity: 0.8,
-            draggable: false,
-            geodesic: true
-        });
-    });
-
-    var c = [{
-        "lat": 42.361295952726586,
-        "lng": -71.05341835721063
-    },
-        {
-            "lat": 42.344863910441305,
-            "lng": -71.05949924146289
-        },
-        {
-            "lat": 42.349533426640555,
-            "lng": -71.057062032957
-        },
-        {
-            "lat": 42.35653726729268,
-            "lng": -71.06202649611477
-        }
-    ]
-    // Construct a draggable red triangle with geodesic set to true.
-
-});
 
 /**
  * The CenterControl adds a control to the map that recenters the map on
@@ -84,7 +45,7 @@ function CenterControl(controlDiv, map) {
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: simply set the map to Chicago.
-    controlUI.addEventListener('click', function() {
+    controlUI.addEventListener('click', function () {
         map.setCenter(boston_center);
     });
 
@@ -119,9 +80,9 @@ function initMap() {
 
 
     var map_style = [{
-        elementType: 'geometry',
-        stylers: [{
-            color: '#f5f5f5'
+            elementType: 'geometry',
+            stylers: [{
+                color: '#f5f5f5'
         }]
     },
         {
@@ -242,8 +203,41 @@ function initMap() {
         }
     ];
 
+    var map_style2 = [{
+            "elementType": "labels",
+            "stylers": [{
+                "visibility": "off"
+                    }]
+                },
+        {
+            "featureType": "administrative.neighborhood",
+            "stylers": [{
+                "visibility": "off"
+                    }]
+                },
+        {
+            "featureType": "road.highway",
+            "stylers": [{
+                    "color": "#f5f5f5"
+                        },
+                {
+                    "saturation": -45
+                        },
+                {
+                    "lightness": 35
+                        }
+                    ]
+                },
+        {
+            "featureType": "water",
+            "stylers": [{
+                "color": "#cbdaec"
+                    }]
+                }
+            ]
+
     map.setOptions({
-        styles: map_style
+        styles: map_style2
     });
 
 }
