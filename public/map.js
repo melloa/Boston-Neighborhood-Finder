@@ -36,8 +36,9 @@ function CenterControl(controlDiv, map) {
     // Set CSS for the control interior.
     var controlText = document.createElement('div');
     controlText.style.color = 'rgb(25,25,25)';
-    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
+    controlText.style.fontFamily = 'sans-serif';
+    controlText.style.fontSize = '14px';
+    controlText.style.fontWeight = '600';
     controlText.style.lineHeight = '38px';
     controlText.style.paddingLeft = '5px';
     controlText.style.paddingRight = '5px';

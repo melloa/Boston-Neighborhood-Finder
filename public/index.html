@@ -16,10 +16,7 @@
             position: fixed;
             z-index: 99;
             background: rgba(20, 20, 20, 50%);
-            color: #FFF;
-            width: 100%;
-            text-align: center;
-            margin-top: -149px;
+            color: #FFF; width: 100%; text-align: center; bottom: 0;
         }
 
         label {
@@ -161,7 +158,7 @@
         </div>
         <div class="row">
             <label for="income"><strong>Annual Income</strong></label>
-            <select name="income" id="income">
+            <select name="income" onchange="get_housing(verify_housing)" id="income">
                 <option value="default" >select income range</option>
                 <option value="$0-$10,000">$0-$10,000</option>
                 <option value="$10,000-$30,000">$10,000-$30,000</option>
@@ -170,6 +167,11 @@
                 <option value="$100,000-200,000">$100,000-$200,000</option>
                 <option value="$200,000+">$200,000+</option>
             </select>
+        </div>
+        <div class="row">
+            <label for="work"><strong>Work Address</strong></label>
+            <input id="work_field" type="text" name="work">
+            <button type="button" onclick="update_driving()">></button>
         </div>
 
         <div class="row">
@@ -185,15 +187,76 @@
     </script>
 
     <script type="text/javascript">
+        var valid_neighborhoods = []
+        var weights = []
+
         function saveForm() {
             let incomeSelect = document.getElementById("income");
             let selected = incomeSelect.options[incomeSelect.selectedIndex].value;
             if (selected === "default") {
                 result.textContent = "Please select an income range";
             } else {
-                result.textContent = selected;
+                //get_housing(verify_housing)
             }
-            create_polygon(map, 'Downtown', colors.good)
+        }
+
+        function verify_housing(name, price) {
+            console.log("verify housing")
+            console.log(name)
+            let incomeSelect = document.getElementById("income");
+            let max_price = 100000 * incomeSelect.selectedIndex + 300000
+            let min_price = incomeSelect.selectedIndex >= 5 ? 500000 : 0;
+
+            for (var i = 0; i < name.length; i++) {
+                console.log("Max: " + max_price + "  Min: " + min_price + "  Price: " + price[i])
+                if (price[i] < max_price && price[i] > min_price) {
+                    valid_neighborhoods.push(name[i])
+                    weights.push(5)
+                    create_polygon(map, name[i], colors.good)
+                }
+            }
+            console.log(weights)
+        }
+
+        function update_driving() {
+            let work_address = document.getElementById("work_field");
+            getDrivingDistance(work_address.value, JSON.parse(JSON.stringify(valid_neighborhoods)), driving_callback)
+        }
+
+        function driving_callback(res) {
+            console.log(res)
+            var times = []
+            out = parseDrivingDistance(res)
+            for (var i = 0; i < valid_neighborhoods.length; i++) {
+                times.push(out[valid_neighborhoods[i]])
+            }
+
+            console.log(times)
+            var min_time = Math.min.apply(null, times)
+
+            for (var i = 0; i < valid_neighborhoods.length; i++) {
+                var additional = (times[i] - min_time) / 120; // 20 min
+                weights[i] = (weights[i] + (10 - additional)) / 2
+            }
+            console.log(weights)
+            update_regions()
+        }
+
+        function update_regions() {
+            for (var i = 0; i < valid_neighborhoods.length; i++) {
+                var color;
+                if (weights[i] >= 8) {
+                    color = colors.best
+                } else if (weights[i] >= 6) {
+                    color = colors.better
+                } else if (weights[i] >= 3) {
+                    color = colors.good
+                } else {
+                    color = colors.fair
+                }
+
+                set_polygon_color(valid_neighborhoods[i], color)
+            }
         }
 
     </script>
