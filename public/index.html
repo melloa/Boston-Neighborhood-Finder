@@ -51,18 +51,19 @@
             display: inline-block;
         }
 
-        input[type=submit] {
-            background-color: #4CAF50;
+        .submit_btn {
+            background-color: #81ae64;
             color: white;
             padding: 12px 20px;
-            border: none;
+            border: 1px solid #555;
             border-radius: 4px;
             cursor: pointer;
             margin-bottom: 20px;
+            font-weight: 600;
         }
 
-        input[type=submit]:hover {
-            background-color: #45a049;
+        .submit_btn:hover {
+            background-color: #333;
         }
 
         .container {
@@ -211,9 +212,9 @@
                 <p id="rankintro">Please rank the following areas in order of importance</p>
             </div>
             <div class="row">
-                <label for="publictransit"><strong>Public Transit Stations</strong></label>
-                <select name="publictransit" id="publictransit">
-                    <option value="default" >Select rank</option>
+                <label for="parks"><strong>Parks and Green Space</strong></label>
+                <select name="parks" id="parks">
+                    <option value="default" >Select Rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -221,9 +222,9 @@
                 </select>
             </div>
             <div class="row">
-                <label for="parks"><strong>Parks and Green Space</strong></label>
-                <select name="parks" id="parks">
-                    <option value="default" >Select Rank</option>
+                <label for="publictransit"><strong>Public Transit Stations</strong></label>
+                <select name="publictransit" id="publictransit">
+                    <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -252,7 +253,7 @@
             </div>
             <br>
             <div class="row">
-                <input type="submit" value="Submit" onClick="submitForm(); return false">
+                <input class="submit_btn" type="button" value="Submit" onClick="submitForm(); return false">
             </div>
         </form>
     </div>
