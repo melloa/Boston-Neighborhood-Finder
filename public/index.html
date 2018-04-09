@@ -39,11 +39,11 @@
             color: #FFF;
             text-align: center;
             width: 444px;
-            height: 444px;
+            height: 470px;
             top: 50%;
             left: 50%;
             margin-left: -222px;
-            margin-top: -222px;
+            margin-top: -235px;
         }
 
         label {
@@ -184,6 +184,7 @@
 
     <div id="formContainer">
         <form id="form">
+            <br>
             <div>
                 <p id="formintro">Please fill out a little about yourself</p>
             </div>
@@ -210,33 +211,45 @@
                 <p id="rankintro">Please rank the following areas in order of importance</p>
             </div>
             <div class="row">
-                <label for="parks"><strong>Parks and green space</strong></label>
-                <select name="parks" id="parks">
+                <label for="publictransit"><strong>Public Transit Stations</strong></label>
+                <select name="publictransit" id="publictransit">
                     <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
             </div>
             <div class="row">
-                <label for="restaurants"><strong>Restaurants nearby</strong></label>
+                <label for="parks"><strong>Parks and Green Space</strong></label>
+                <select name="parks" id="parks">
+                    <option value="default" >Select Rank</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="row">
+                <label for="restaurants"><strong>Restaurants Nearby</strong></label>
                 <select name="restaurants" id="restaurants">
                     <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
             </div>
             <div class="row">
-                <label for="nightlife"><strong>Nightlife nearby</strong></label>
+                <label for="nightlife"><strong>Nightlife Nearby</strong></label>
                 <select name="nightlife" id="nightlife">
                     <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
             </div>
-            <br>
             <br>
             <div class="row">
                 <input type="submit" value="Submit" onClick="submitForm(); return false">
