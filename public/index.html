@@ -18,7 +18,7 @@
             background: rgba(20, 20, 20, 50%);
             color: #FFF;
             text-align: center;
-            width: 40%;
+            width: 444px;
             left: 78px;
             bottom: 0;
         }
@@ -141,11 +141,11 @@
     <div id="formContainer" >
         <form id="form">
             <div>
-                <p id="intro">Please fill out a little about yourself</p>
+                <p id="formintro">Please fill out a little about yourself</p>
             </div>
             <div class="row">
                 <label for="income"><strong>Annual Income</strong></label>
-                <select name="income" onchange="get_housing(verify_housing)" id="income">
+                <select name="income" onchange="//nothing" id="income">
                     <option value="default" >select income range</option>
                     <option value="$0-$10,000">$0-$10,000</option>
                     <option value="$10,000-$30,000">$10,000-$30,000</option>
@@ -161,12 +161,13 @@
                 <button type="button" onclick="update_driving()">></button>
             </div>
             <br>
+
             <div class="row">
-                <p id="result">Please rank follow areas in order of importance</p>
+                <p id="rankintro">Please rank the following areas in order of importance</p>
             </div>
             <div class="row">
                 <label for="parks"><strong>Parks and green space</strong></label>
-                <select name="parks" onchange="green_space(verify_housing)" id="income">
+                <select name="parks" id="parks">
                     <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -175,7 +176,7 @@
             </div>
             <div class="row">
                 <label for="restaurants"><strong>Restaurants nearby</strong></label>
-                <select name="restaurants" onchange="green_space(verify_housing)" id="income">
+                <select name="restaurants" id="restaurants">
                     <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -184,7 +185,7 @@
             </div>
             <div class="row">
                 <label for="nightlife"><strong>Nightlife nearby</strong></label>
-                <select name="nightlife" onchange="green_space(verify_housing)" id="income">
+                <select name="nightlife" id="nightlife">
                     <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -194,7 +195,7 @@
             <br>
 
             <div class="row">
-                <input type="submit" value="Submit" onClick="saveForm(); return false">
+                <input type="submit" value="Submit" onClick="submitForm(); return false">
             </div>
         </form>
     </div>
@@ -209,13 +210,15 @@
         let valid_neighborhoods = [];
         let weights = [];
 
-        function saveForm() {
+
+
+        function saveIncome() {
             let incomeSelect = document.getElementById("income");
             let selected = incomeSelect.options[incomeSelect.selectedIndex].value;
             if (selected === "default") {
                 result.textContent = "Please select an income range";
             } else {
-                //get_housing(verify_housing)
+
             }
         }
 
@@ -277,6 +280,12 @@
                 set_polygon_color(valid_neighborhoods[i], color)
             }
         }
+
+
+        function submitForm() {
+            get_housing(verify_housing);
+        }
+
 
     </script>
 

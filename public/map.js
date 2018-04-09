@@ -48,6 +48,7 @@ function CenterControl(controlDiv, map) {
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener('click', function () {
         map.setCenter(boston_center);
+        map.setZoom(12);
     });
 
 }
@@ -61,7 +62,7 @@ function initMap() {
         },
         zoom: 12,
         draggable: true,
-        mapTypeControl: true,
+        mapTypeControl: false,
         disableDefaultUI: false
 
     });
