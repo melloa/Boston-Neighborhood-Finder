@@ -65,3 +65,10 @@ function get_housing(callback) {
         callback(neighborhood_name, price)
     });
 }
+
+function get_values(type, neighborhoods_names, callback) {
+    firebase.database().ref(type + '/').on('value', function (snapshot) {
+        data = snapshot.val()
+        callback(data)
+    });
+}

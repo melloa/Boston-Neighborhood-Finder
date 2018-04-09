@@ -139,9 +139,9 @@
                 <path d="M34 14 L14,34 z" stroke="white" stroke-width="3" fill="none" />
             </svg>
         </a>
-        <dl>
+        <dl id="neighborhood_list">
             <dt>Match Breakdown</dt>
-            <dd class="stacked-bar-graph">
+            <!---<dd class="stacked-bar-graph">
                 <span class="text">Back Bay</span>
                 <span style="width:15%"></span>
                 <span style="width:20%" class="bar outdoors"></span>
@@ -179,7 +179,7 @@
                 <span style="width:5%" class="bar nightlife"></span>
                 <span style="width:10%" class="bar restaurants"></span>
                 <span style="width:2%" class="bar dist_work"></span>
-            </dd>
+            </dd>--->
         </dl>
     </div>
 
@@ -213,8 +213,8 @@
             </div>
             <div class="row">
                 <label for="parks"><strong>Parks and Green Space</strong></label>
-                <select name="parks" id="parks">
-                    <option value="default" >Select Rank</option>
+                <select name="parks" id="parks" onchange="get_values('green space', valid_neighborhoods, set_park_weights)">
+                    <option value="default">Select Rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -223,7 +223,7 @@
             </div>
             <div class="row">
                 <label for="publictransit"><strong>Public Transit Stations</strong></label>
-                <select name="publictransit" id="publictransit">
+                <select name="publictransit" id="publictransit" onchange="get_values('public_transportation', valid_neighborhoods, set_transit_weights)">
                     <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -233,7 +233,7 @@
             </div>
             <div class="row">
                 <label for="restaurants"><strong>Restaurants Nearby</strong></label>
-                <select name="restaurants" id="restaurants">
+                <select name="restaurants" id="restaurants" onchange="get_values('entertainment', valid_neighborhoods, set_restaurants_weights)">
                     <option value="default" >Select rank</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -272,6 +272,10 @@
     <script type="text/javascript">
         let valid_neighborhoods = [];
         let weights = [];
+        let weights_driving = [];
+        let weights_restaurants = [];
+        let weights_nightlife = [];
+        let weights_parks = [];
 
         function verify_housing(name, price) {
             console.log("verify housing")
@@ -313,7 +317,8 @@
             for (let i = 0; i < valid_neighborhoods.length; i++) {
                 if (times[i]) {
                     let additional = (times[i] - min_time) / 180; // 20 min
-                    weights[i] = (weights[i] + (10 - additional)) / 2
+                    weights_driving[i] = (weights[i] + (10 - additional)) / 2
+                    weights[i] = weights_driving[i]
                     console.log("Penalty: " + additional + "    Weight: " + weights[i])
                 }
             }
@@ -339,6 +344,45 @@
             }
         }
 
+        function set_park_weights(parks) {
+            for (let i = 0; i < valid_neighborhoods.length; i++) {
+                if (parks[valid_neighborhoods[i]]) {
+                    weights_parks[i] = parks[valid_neighborhoods[i]] / 25;
+                } else {
+                    weights_parks[i] = 5
+                }
+                weights[i] = (weights[i] + 0.08 * weights_parks[i]) / 1.08
+            }
+            update_regions()
+        }
+
+        function set_transit_weights(transit) {
+            console.log(transit)
+            for (let i = 0; i < valid_neighborhoods.length; i++) {
+                if (transit[valid_neighborhoods[i]]) {
+                    weights_nightlife[i] = transit[valid_neighborhoods[i]] / 2 + 3;
+                } else {
+                    weights_nightlife[i] = 5
+                }
+                weights[i] = (weights[i] + 0.2 * weights_nightlife[i]) / 1.2
+            }
+            console.log(weights_nightlife)
+            update_regions()
+        }
+
+        function set_restaurants_weights(r) {
+            console.log(r)
+            for (let i = 0; i < valid_neighborhoods.length; i++) {
+                if (r[valid_neighborhoods[i]]) {
+                    weights_restaurants[i] = r[valid_neighborhoods[i]].restaurants / 5;
+                } else {
+                    weights_restaurants[i] = 5
+                }
+                weights[i] = (weights[i] + 0.08 * weights_restaurants[i]) / 1.08
+            }
+            console.log(weights_restaurants)
+            update_regions()
+        }
 
         function submitForm() {
             //get_housing(verify_housing);
@@ -347,6 +391,27 @@
             let nightliferank = document.getElementById("nightlife").selectedIndex;
             let transitrank = document.getElementById("publictransit").selectedIndex;
             document.getElementById("formContainer").style.display = 'none';
+            for (let i = 0; i < valid_neighborhoods.length; i++) {
+                weights[i] = weights_parks[i] + 2 * weights_nightlife[i] + weights_restaurants[i] + 5 * weights_driving[i]
+            }
+            while (valid_neighborhoods.length > 0) {
+                var index = weights.indexOf(Math.max(...weights))
+                var w = {
+                    'outdoors': weights_parks[index] + 5,
+                    'transportation': 2 * weights_nightlife[index] + 5,
+                    'restaurants': 1 * weights_restaurants[index] + 5,
+                    'work': 5 * weights_driving[index] + 5
+                }
+                //console.log(2.5 * weights[index][3])
+                add_neighborhood(valid_neighborhoods[index], w)
+                //weight_total.splice(index, 1);
+                weights.splice(index, 1);
+                weights_parks.splice(index, 1);
+                weights_nightlife.splice(index, 1);
+                weights_restaurants.splice(index, 1);
+                weights_driving.splice(index, 1);
+                valid_neighborhoods.splice(index, 1);
+            }
         }
 
     </script>

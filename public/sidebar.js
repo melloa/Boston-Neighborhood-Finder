@@ -17,7 +17,7 @@ function createTip(ev) {
     var linkProps = this.getBoundingClientRect();
     var tooltipProps = tooltipWrap.getBoundingClientRect();
     var topPos = linkProps.top - (tooltipProps.height + padding);
-    tooltipWrap.setAttribute('style', 'top:' + topPos + 'px;' + 'left:' + (linkProps.left - 20) + 'px;');
+    tooltipWrap.setAttribute('style', 'top:' + topPos + 'px;' + 'left:' + (linkProps.left) + 'px;');
 
 }
 // Function to make the tooltip disappear
@@ -56,14 +56,14 @@ function add_neighborhood(title, weights) {
             <dd class="stacked-bar-graph"><span class="text">NEIGHBORHOOD</span>
                 <span style="width:15%"></span>
                 <span style="width:OUTDOORS%" class="bar outdoors"></span>
-                <span style="width:NIGHTLIFE%" class="bar nightlife"></span>
+                <span style="width:NIGHTLIFE%" class="bar transportation"></span>
                 <span style="width:RESTAURANT%" class="bar restaurants"></span>
                 <span style="width:WORK%" class="bar dist_work"></span>
             </dd>
     `;
     html_data = html_data.replace('NEIGHBORHOOD', title);
     html_data = html_data.replace('OUTDOORS', (weights['outdoors'] * 0.65));
-    html_data = html_data.replace('NIGHTLIFE', (weights['nightlife'] * 0.65));
+    html_data = html_data.replace('NIGHTLIFE', (weights['transportation'] * 0.65));
     html_data = html_data.replace('RESTAURANT', (weights['restaurants'] * 0.65));
     html_data = html_data.replace('WORK', (weights['work'] * 0.75));
     document.getElementById("neighborhood_list").innerHTML += html_data;
