@@ -259,34 +259,19 @@
         let valid_neighborhoods = [];
         let weights = [];
 
-
-
-        // function saveIncome() {
-        //     let incomeSelect = document.getElementById("income");
-        //     let selected = incomeSelect.options[incomeSelect.selectedIndex].value;
-        //     if (selected === "default") {
-        //         result.textContent = "Please select an income range";
-        //     } else {
-        //
-        //     }
-        // }
-
         function verify_housing(name, price) {
             console.log("verify housing")
-            console.log(name)
             let incomeSelect = document.getElementById("income");
             let max_price = 100000 * incomeSelect.selectedIndex + 300000
             let min_price = incomeSelect.selectedIndex >= 5 ? 500000 : 0;
 
             for (let i = 0; i < name.length; i++) {
-                console.log("Max: " + max_price + "  Min: " + min_price + "  Price: " + price[i]);
                 if (price[i] < max_price && price[i] > min_price) {
                     valid_neighborhoods.push(name[i]);
                     weights.push(5);
                     create_polygon(map, name[i], colors.good)
                 }
             }
-            console.log(weights)
         }
 
         function update_driving() {
@@ -297,18 +282,28 @@
         function driving_callback(res) {
             console.log(res)
             let times = [];
-            out = parseDrivingDistance(res)
+            let out = parseDrivingDistance(res)
             for (let i = 0; i < valid_neighborhoods.length; i++) {
-                times.push(out[valid_neighborhoods[i]])
+                var value = out[valid_neighborhoods[i]]
+                if (value) {
+                    times.push(value)
+                } else {
+                    times.push(1500)
+                }
             }
 
+            console.log("times")
             console.log(times)
             let min_time = Math.min.apply(null, times);
 
             for (let i = 0; i < valid_neighborhoods.length; i++) {
-                let additional = (times[i] - min_time) / 120; // 20 min
-                weights[i] = (weights[i] + (10 - additional)) / 2
+                if (times[i]) {
+                    let additional = (times[i] - min_time) / 180; // 20 min
+                    weights[i] = (weights[i] + (10 - additional)) / 2
+                    console.log("Penalty: " + additional + "    Weight: " + weights[i])
+                }
             }
+            console.log("weights")
             console.log(weights)
             update_regions()
         }

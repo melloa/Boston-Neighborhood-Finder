@@ -23,7 +23,10 @@ function parseDrivingDistance(response) {
     var addresses = response.destinationAddresses;
     var elements = response.rows[0].elements;
     for (var i = 0; i < addresses.length; i++) {
-        var name = addresses[i].split(',')[0];
+        var name = addresses[i].split(',')[0].split('/')[0];
+        if (name == "Dorchester") {
+            name = "South Dorchester"
+        }
         distances[name] = elements[i].duration_in_traffic.value;
     }
     return distances;

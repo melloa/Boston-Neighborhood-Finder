@@ -22,9 +22,11 @@ function create_polygon(map, location, color) {
 }
 
 function set_polygon_color(location, color) {
-    regions[location].setOptions({
-        fillColor: color
-    })
+    if (regions[location]) {
+        regions[location].setOptions({
+            fillColor: color
+        })
+    }
 }
 
 function get_housing(callback) {
@@ -54,7 +56,6 @@ function get_housing(callback) {
     ]
     firebase.database().ref('housing/').on('value', function (snapshot) {
         housing = snapshot.val()
-        console.log(housing)
         neighborhood_name = [];
         price = [];
         neighborhoods.forEach(function (n) {
