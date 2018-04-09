@@ -68,12 +68,16 @@ function initMap() {
             {
                 featureType: 'poi',
                 elementType: 'labels.text.fill',
-                stylers: [{color: '#d59563'}]
+                stylers: [{
+                    color: '#d59563'
+                }]
             },
             {
                 featureType: 'poi.park',
                 elementType: 'geometry',
-                stylers: [{color: '#263c3f'}]
+                stylers: [{
+                    color: '#263c3f'
+                }]
             },
         ]
 
@@ -220,7 +224,7 @@ function initMap() {
     let map_style2 = [{
             "elementType": "labels",
             "stylers": [{
-                "visibility": "off"
+                "visibility": "on"
                     }]
                 },
         {

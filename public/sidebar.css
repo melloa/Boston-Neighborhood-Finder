@@ -25,6 +25,7 @@ dt {
 
 .text {
     position: absolute;
+    font-weight: 600;
     width: 130px;
     left: 0;
 }
@@ -62,7 +63,7 @@ dt {
     background: #f1c25b;
 }
 
-.safety {
+.dist_work {
     background: #f97979;
 }
 
@@ -118,5 +119,3 @@ svg {
     opacity: 0;
 
 }
-
-sidebar.css

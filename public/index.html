@@ -48,6 +48,27 @@
             padding: 20px;
         }
 
+        .legend {
+            position: fixed;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 30px;
+            bottom: 50px;
+            right: 50px;
+        }
+
+        .legend-spacer {
+            padding: 0 74px;
+        }
+
+        .scale {
+            width: 200px;
+            height: 25px;
+            background: linear-gradient(to right, #709053, #81ae64, #c7e78b, #fff4c9);
+            border: 2px solid #333;
+        }
+
         /* Clear floats after the columns */
 
         .row:after {
@@ -138,7 +159,7 @@
         </dl>
     </div>
 
-    <div id="formContainer" >
+    <div id="formContainer">
         <form id="form">
             <div>
                 <p id="formintro">Please fill out a little about yourself</p>
@@ -198,6 +219,11 @@
                 <input type="submit" value="Submit" onClick="submitForm(); return false">
             </div>
         </form>
+    </div>
+    <div class="legend">
+        <span>Best<span class="legend-spacer"></span>Fair</span>
+        <br>
+        <div class="scale"></div>
     </div>
 
     <script>
@@ -291,7 +317,6 @@
 
 
         }
-
 
     </script>
 
