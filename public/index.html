@@ -145,7 +145,7 @@
             </div>
             <div class="row">
                 <label for="income"><strong>Annual Income</strong></label>
-                <select name="income" onchange="//nothing" id="income">
+                <select name="income" onchange="get_housing(verify_housing)" id="income">
                     <option value="default" >select income range</option>
                     <option value="$0-$10,000">$0-$10,000</option>
                     <option value="$10,000-$30,000">$10,000-$30,000</option>
@@ -156,8 +156,8 @@
                 </select>
             </div>
             <div class="row">
-                <label for="work"><strong>Work Address</strong></label>
-                <input id="work" type="text" name="work">
+                <label for="work_field"><strong>Work Address</strong></label>
+                <input id="work_field" type="text" name="work">
                 <button type="button" onclick="update_driving()">></button>
             </div>
             <br>
@@ -212,15 +212,15 @@
 
 
 
-        function saveIncome() {
-            let incomeSelect = document.getElementById("income");
-            let selected = incomeSelect.options[incomeSelect.selectedIndex].value;
-            if (selected === "default") {
-                result.textContent = "Please select an income range";
-            } else {
-
-            }
-        }
+        // function saveIncome() {
+        //     let incomeSelect = document.getElementById("income");
+        //     let selected = incomeSelect.options[incomeSelect.selectedIndex].value;
+        //     if (selected === "default") {
+        //         result.textContent = "Please select an income range";
+        //     } else {
+        //
+        //     }
+        // }
 
         function verify_housing(name, price) {
             console.log("verify housing")
@@ -229,7 +229,7 @@
             let max_price = 100000 * incomeSelect.selectedIndex + 300000
             let min_price = incomeSelect.selectedIndex >= 5 ? 500000 : 0;
 
-            for (var i = 0; i < name.length; i++) {
+            for (let i = 0; i < name.length; i++) {
                 console.log("Max: " + max_price + "  Min: " + min_price + "  Price: " + price[i]);
                 if (price[i] < max_price && price[i] > min_price) {
                     valid_neighborhoods.push(name[i]);
@@ -247,17 +247,17 @@
 
         function driving_callback(res) {
             console.log(res)
-            var times = []
+            let times = [];
             out = parseDrivingDistance(res)
-            for (var i = 0; i < valid_neighborhoods.length; i++) {
+            for (let i = 0; i < valid_neighborhoods.length; i++) {
                 times.push(out[valid_neighborhoods[i]])
             }
 
             console.log(times)
-            var min_time = Math.min.apply(null, times)
+            let min_time = Math.min.apply(null, times);
 
-            for (var i = 0; i < valid_neighborhoods.length; i++) {
-                var additional = (times[i] - min_time) / 120; // 20 min
+            for (let i = 0; i < valid_neighborhoods.length; i++) {
+                let additional = (times[i] - min_time) / 120; // 20 min
                 weights[i] = (weights[i] + (10 - additional)) / 2
             }
             console.log(weights)
@@ -265,8 +265,8 @@
         }
 
         function update_regions() {
-            for (var i = 0; i < valid_neighborhoods.length; i++) {
-                var color;
+            for (let i = 0; i < valid_neighborhoods.length; i++) {
+                let color;
                 if (weights[i] >= 8) {
                     color = colors.best
                 } else if (weights[i] >= 6) {
@@ -283,7 +283,13 @@
 
 
         function submitForm() {
-            get_housing(verify_housing);
+            //get_housing(verify_housing);
+            let parksrank = document.getElementById("parks");
+            let restaurantrank = document.getElementById("restaurants");
+            let nightliferank = document.getElementById("nightlife");
+
+
+
         }
 
 

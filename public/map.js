@@ -1,11 +1,11 @@
-var map;
+let map;
 
-var boston_center = {
-    lat: 42.351,
+let boston_center = {
+    lat: 42.321,
     lng: -71.076
 };
 
-var colors = {
+let colors = {
     best: "#709053",
     better: "#81ae64",
     good: "#c7e78b",
@@ -22,7 +22,7 @@ var colors = {
 function CenterControl(controlDiv, map) {
 
     // Set CSS for the control border.
-    var controlUI = document.createElement('div');
+    let controlUI = document.createElement('div');
     controlUI.style.backgroundColor = '#fff';
     controlUI.style.border = '2px solid #fff';
     controlUI.style.borderRadius = '3px';
@@ -34,7 +34,7 @@ function CenterControl(controlDiv, map) {
     controlDiv.appendChild(controlUI);
 
     // Set CSS for the control interior.
-    var controlText = document.createElement('div');
+    let controlText = document.createElement('div');
     controlText.style.color = 'rgb(25,25,25)';
     controlText.style.fontFamily = 'sans-serif';
     controlText.style.fontSize = '14px';
@@ -63,17 +63,29 @@ function initMap() {
         zoom: 12,
         draggable: true,
         mapTypeControl: false,
-        disableDefaultUI: false
+        disableDefaultUI: false,
+        styles: [
+            {
+                featureType: 'poi',
+                elementType: 'labels.text.fill',
+                stylers: [{color: '#d59563'}]
+            },
+            {
+                featureType: 'poi.park',
+                elementType: 'geometry',
+                stylers: [{color: '#263c3f'}]
+            },
+        ]
 
     });
 
-    var centerControlDiv = document.createElement('div');
-    var centerControl = new CenterControl(centerControlDiv, map);
+    let centerControlDiv = document.createElement('div');
+    let centerControl = new CenterControl(centerControlDiv, map);
 
     centerControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
-    var colors2 = {
+    let colors2 = {
         best: "#0278ae",
         better: "#51adcf",
         good: "#a5ecd7",
@@ -81,12 +93,12 @@ function initMap() {
     };
 
 
-    var map_style = [{
+    let map_style = [{
             elementType: 'geometry',
             stylers: [{
                 color: '#f5f5f5'
-        }]
-    },
+            }]
+        },
         {
             elementType: 'labels.icon',
             stylers: [{
@@ -205,7 +217,7 @@ function initMap() {
         }
     ];
 
-    var map_style2 = [{
+    let map_style2 = [{
             "elementType": "labels",
             "stylers": [{
                 "visibility": "off"
