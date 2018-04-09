@@ -48,7 +48,7 @@ function CenterControl(controlDiv, map) {
     // Setup the click event listeners: simply set the map to Chicago.
     controlUI.addEventListener('click', function () {
         map.setCenter(boston_center);
-        map.setZoom(12);
+        map.setZoom(12.5);
     });
 
 }
@@ -60,26 +60,10 @@ function initMap() {
             lat: 42.321,
             lng: -71.076
         },
-        zoom: 12,
+        zoom: 12.5,
         draggable: true,
         mapTypeControl: false,
-        disableDefaultUI: false,
-        styles: [
-            {
-                featureType: 'poi',
-                elementType: 'labels.text.fill',
-                stylers: [{
-                    color: '#d59563'
-                }]
-            },
-            {
-                featureType: 'poi.park',
-                elementType: 'geometry',
-                stylers: [{
-                    color: '#263c3f'
-                }]
-            },
-        ]
+        disableDefaultUI: false
 
     });
 
@@ -98,11 +82,11 @@ function initMap() {
 
 
     let map_style = [{
-            elementType: 'geometry',
-            stylers: [{
-                color: '#f5f5f5'
-            }]
-        },
+        elementType: 'geometry',
+        stylers: [{
+            color: '#f5f5f5'
+        }]
+    },
         {
             elementType: 'labels.icon',
             stylers: [{
@@ -221,38 +205,39 @@ function initMap() {
         }
     ];
 
-    let map_style2 = [{
+    let map_style2 = [
+        {
             "elementType": "labels",
-            "stylers": [{
-                "visibility": "off"
-                    }]
-                },
+            "stylers": [{"visibility": "off"}]
+        },
         {
             "featureType": "administrative.neighborhood",
-            "stylers": [{
-                "visibility": "off"
-                    }]
-                },
+            "stylers": [{"visibility": "off"}]
+        },
         {
             "featureType": "road.highway",
-            "stylers": [{
-                    "color": "#f5f5f5"
-                        },
-                {
-                    "saturation": -45
-                        },
-                {
-                    "lightness": 35
-                        }
-                    ]
-                },
+            "stylers": [
+                {"color": "#f5f5f5"},
+                {"saturation": -45},
+                {"lightness": 35}
+            ]
+        },
+        {
+            "featureType": 'poi',
+            "elementType": 'labels.text.fill',
+            "stylers": [{color: '#d59563'}]
+        },
+        {
+            "featureType": 'poi',
+            "elementType": 'geometry',
+            "stylers": [{color: '#d6edd9'}]
+        },
         {
             "featureType": "water",
-            "stylers": [{
-                "color": "#cbdaec"
-                    }]
-                }
-            ]
+            "stylers": [{"color": "#cbdaec"}]
+        }];
+
+
 
     map.setOptions({
         styles: map_style2
