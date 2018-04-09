@@ -16,7 +16,10 @@
             position: fixed;
             z-index: 99;
             background: rgba(20, 20, 20, 50%);
-            color: #FFF; width: 100%; text-align: center; bottom: 0;
+            color: #FFF;
+            width: 100%;
+            text-align: center;
+            bottom: 0;
         }
 
         label {
@@ -154,7 +157,7 @@
 
     <form id="form">
         <div>
-            <p id="result">Please select an income range</p>
+            <p id="result">Please fill out a little about yourself</p>
         </div>
         <div class="row">
             <label for="income"><strong>Annual Income</strong></label>
@@ -173,6 +176,38 @@
             <input id="work_field" type="text" name="work">
             <button type="button" onclick="update_driving()">></button>
         </div>
+        <br>
+        <div class="row">
+            <p id="result">Please rank follow areas in order of importance</p>
+        </div>
+        <div class="row">
+            <label for="parks"><strong>Parks and green space</strong></label>
+            <select name="parks" onchange="green_space(verify_housing)" id="income">
+                <option value="default" >Select rank</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="parks"><strong>Restaurants nearby</strong></label>
+            <select name="parks" onchange="green_space(verify_housing)" id="income">
+                <option value="default" >Select rank</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="parks"><strong>Nightlift nearby</strong></label>
+            <select name="parks" onchange="green_space(verify_housing)" id="income">
+                <option value="default" >Select rank</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </div>
+        <br>
 
         <div class="row">
             <input type="submit" value="Submit" onClick="saveForm(); return false">
