@@ -224,7 +224,7 @@ function initMap() {
     let map_style2 = [{
             "elementType": "labels",
             "stylers": [{
-                "visibility": "on"
+                "visibility": "off"
                     }]
                 },
         {
