@@ -14,7 +14,19 @@ function create_polygon(map, location, color) {
             fillColor: color,
             fillOpacity: 0.85,
             draggable: false,
-            geodesic: true
+            geodesic: true,
+            title: location
+        });
+        polygon.infoWindow = new google.maps.InfoWindow({
+            content: '<div>' + location + '</div>',
+        });
+        google.maps.event.addListener(polygon, 'mouseover', function (e) {
+            var latLng = e.latLng;
+            polygon.infoWindow.setPosition(latLng);
+            polygon.infoWindow.open(map);
+        });
+        google.maps.event.addListener(polygon, 'mouseout', function () {
+            polygon.infoWindow.close();
         });
 
         regions[location] = polygon
