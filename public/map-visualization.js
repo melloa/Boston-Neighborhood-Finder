@@ -1,11 +1,14 @@
 var regions = {}
 var test;
+var polygon;
+var polygons = [];
 
 function create_polygon(map, location, color) {
+
     var database_location = 'region/' + location + '/'
     firebase.database().ref(database_location).on('value', function (snapshot) {
-        var points = snapshot.val()
-        var polygon = new google.maps.Polygon({
+        var points = snapshot.val();
+        polygon = new google.maps.Polygon({
             map: map,
             paths: points,
             strokeColor: '#757575',
@@ -17,6 +20,8 @@ function create_polygon(map, location, color) {
             geodesic: true,
             title: location
         });
+        polygons.push(polygon);
+
         polygon.infoWindow = new google.maps.InfoWindow({
             content: '<div>' + location + '</div>',
         });
@@ -33,6 +38,13 @@ function create_polygon(map, location, color) {
     });
 }
 
+//remove all existing polygons and clear "polygons" array
+function reset_polygons() {
+    while(polygons[0]) {
+        polygons.pop().setMap(null);
+    }
+}
+
 function set_polygon_color(location, color) {
     if (regions[location]) {
         regions[location].setOptions({
@@ -42,36 +54,37 @@ function set_polygon_color(location, color) {
 }
 
 function get_housing(callback) {
+
     var neighborhoods = [
         "Allston",
-"Back Bay",
-"Beacon Hill",
-"Brighton",
-"Charlestown",
-"Chinatown",
-"East Boston",
-"Fenway",
-"Hyde Park",
-"Jamaica Plain",
-"Kenmore",
-"Mattapan",
-"Mission Hill",
-"North Dorchester",
-"North End",
-"Roslindale",
-"Roxbury",
-"South Boston",
-"South Dorchester",
-"South End",
-"West End",
-"West Roxbury"
-    ]
+        "Back Bay",
+        "Beacon Hill",
+        "Brighton",
+        "Charlestown",
+        "Chinatown",
+        "East Boston",
+        "Fenway",
+        "Hyde Park",
+        "Jamaica Plain",
+        "Kenmore",
+        "Mattapan",
+        "Mission Hill",
+        "North Dorchester",
+        "North End",
+        "Roslindale",
+        "Roxbury",
+        "South Boston",
+        "South Dorchester",
+        "South End",
+        "West End",
+        "West Roxbury"
+    ];
     firebase.database().ref('housing/').on('value', function (snapshot) {
-        housing = snapshot.val()
+        housing = snapshot.val();
         neighborhood_name = [];
         price = [];
         neighborhoods.forEach(function (n) {
-            neighborhood_name.push(n)
+            neighborhood_name.push(n);
             price.push(housing[n].house)
         })
         callback(neighborhood_name, price)

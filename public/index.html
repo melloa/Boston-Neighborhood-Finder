@@ -191,7 +191,7 @@
             </div>
             <div class="row">
                 <label for="income"><strong>Annual Income</strong></label>
-                <select name="income" onchange="get_housing(verify_housing)" id="income">
+                <select name="income" onchange="reset_polygons();get_housing(verify_housing)" id="income">
                     <option value="default" >select income range</option>
                     <option value="$0-$10,000">$0-$10,000</option>
                     <option value="$10,000-$30,000">$10,000-$30,000</option>
@@ -278,7 +278,7 @@
         let weights_parks = [];
 
         function verify_housing(name, price) {
-            console.log("verify housing")
+            console.log("verify housing");
             let incomeSelect = document.getElementById("income");
             let max_price = 100000 * incomeSelect.selectedIndex + 300000
             let min_price = incomeSelect.selectedIndex >= 5 ? 500000 : 0;
@@ -287,7 +287,7 @@
                 if (price[i] < max_price && price[i] > min_price) {
                     valid_neighborhoods.push(name[i]);
                     weights.push(5);
-                    create_polygon(map, name[i], colors.good)
+                    create_polygon(map, name[i], colors.good);
                 }
             }
         }
